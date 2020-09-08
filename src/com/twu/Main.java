@@ -23,14 +23,20 @@ public class Main {
         }
 
         String userName = getUserName();
-        operateAccordingToRole(userType, userName);
+        String password = getPassword();
+        if (isValidRole(userType, userName, password)) {
+            operateAccordingToRole(userType, userName);
+        } else {
+            System.out.println(TipsEnum.ERROR_ID);
+        }
+
         main(null);
     }
 
     private static int getUserType() {
-        System.out.println(TipsEnum.ASK_USERTYPE + "\n"
-            + "1." + UserTypeEnum.USER + "\n"
-            + "2." + UserTypeEnum.ADMINISTRATOR + "\n"
+        System.out.println(TipsEnum.ASK_USERTYPE
+            + "1." + UserTypeEnum.USER
+            + "2." + UserTypeEnum.ADMINISTRATOR
             + "3." + OperationTypeEnum.EXIT);
 
         int userType;
@@ -51,6 +57,22 @@ public class Main {
             throw new RuntimeException();
         }
         return userName;
+    }
+
+    private static String getPassword() {
+        System.out.println(TipsEnum.ASK_PASSWORD);
+        String password;
+        try {
+            password = SCANNER.next().trim();
+        } catch (Exception e) {
+            throw new RuntimeException();
+        }
+        return password;
+    }
+
+    private static Boolean isValidRole(int userType, String userName, String password) {
+        return (userType == 1 && password.equals(userName + "123"))
+            || (userType == 2 && password.equals(userName + "123456"));
     }
 
     private static void operateAccordingToRole(int userType, String userName) {

@@ -15,10 +15,10 @@ public class User implements Role {
     @Override
     public void operationAuthority() {
         System.out.println("你好，" + name + "，你可以" + "\n"
-            + "1." + OperationTypeEnum.VIEW_HOT_SEARCH + "\n"
-            + "2." + OperationTypeEnum.VOTE_FOR_HOT_SEARCH + "\n"
-            + "3." + OperationTypeEnum.ADD_HOT_SEARCH + "\n"
-            + "4." + OperationTypeEnum.BUY_HOT_SEARCH + "\n"
+            + "1." + OperationTypeEnum.VIEW_HOT_SEARCH
+            + "2." + OperationTypeEnum.VOTE_FOR_HOT_SEARCH
+            + "3." + OperationTypeEnum.ADD_HOT_SEARCH
+            + "4." + OperationTypeEnum.BUY_HOT_SEARCH
             + "5." + OperationTypeEnum.EXIT);
     }
 
@@ -38,7 +38,7 @@ public class User implements Role {
                 buyHotSearch();
                 break;
             case 5:
-                System.out.println(TipsEnum.HOME + "\n");
+                System.out.println(TipsEnum.HOME);
                 break;
             default:
                 System.out.println(TipsEnum.OPERATION_TYPE_WRONG);
@@ -49,21 +49,35 @@ public class User implements Role {
     private void voteForHotSearch() {
         System.out.println(TipsEnum.INPUT_VOTE_HOT_SEARCH_NAME);
         String hotSearchName;
-        int voteHotSearchValue;
         try {
             hotSearchName = scanner.next();
-            voteHotSearchValue = getVoteValue();
-            if (voteHotSearchValue > poll) {
-                System.out.println(TipsEnum.VOTE_FAIL + "\n");
+            if (isValidHotSearchName(hotSearchName)) {
+                voteForValidHotSearch(hotSearchName);
             } else {
-                poll -= voteHotSearchValue;
-                updateHotSearchHotValue(hotSearchName, voteHotSearchValue);
-                System.out.println(TipsEnum.VOTE_SUCCESS + "\n");
+                System.out.println(TipsEnum.INVALID_VOTE_HOT_SEARCH_NAME);
             }
         } catch (Exception e) {
             throw new RuntimeException();
         }
         returnToChooseOperationType();
+    }
+
+    private boolean isValidHotSearchName(String hotSearchName) {
+        return HotSearchLibrary.hotSearchList
+            .stream()
+            .anyMatch(hotSearch -> hotSearchName.equals(hotSearch.getDescription()));
+    }
+
+    private void voteForValidHotSearch(String hotSearchName) {
+        int voteHotSearchValue;
+        voteHotSearchValue = getVoteValue();
+        if (voteHotSearchValue > poll) {
+            System.out.println(TipsEnum.VOTE_FAIL);
+        } else {
+            poll -= voteHotSearchValue;
+            updateHotSearchHotValue(hotSearchName, voteHotSearchValue);
+            System.out.println(TipsEnum.VOTE_SUCCESS);
+        }
     }
 
     private int getVoteValue() {

@@ -14,9 +14,9 @@ public class Administrator implements Role {
     @Override
     public void operationAuthority() {
         System.out.println("你好，" + name + "，你可以" + "\n"
-            + "1." + OperationTypeEnum.VIEW_HOT_SEARCH + "\n"
-            + "2." + OperationTypeEnum.ADD_HOT_SEARCH + "\n"
-            + "3." + OperationTypeEnum.ADD_SUPPER_HOT_SEARCH + "\n"
+            + "1." + OperationTypeEnum.VIEW_HOT_SEARCH
+            + "2." + OperationTypeEnum.ADD_HOT_SEARCH
+            + "3." + OperationTypeEnum.ADD_SUPPER_HOT_SEARCH
             + "4." + OperationTypeEnum.EXIT);
     }
 
@@ -33,7 +33,7 @@ public class Administrator implements Role {
                 addSuperHotSearch();
                 break;
             case 4:
-                System.out.println(TipsEnum.HOME + "\n");
+                System.out.println(TipsEnum.HOME);
                 break;
             default:
                 System.out.println(TipsEnum.OPERATION_TYPE_WRONG);
