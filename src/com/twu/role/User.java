@@ -2,10 +2,11 @@ package com.twu.role;
 
 import com.twu.enumeration.OperationTypeEnum;
 import com.twu.enumeration.TipsEnum;
+import com.twu.hotSearch.HotSearchLibrary;
 
 public class User implements Role {
     private final String name;
-    private final int poll = 10;
+    private int poll = 10;
 
     public User(String name) {
         this.name = name;
@@ -46,6 +47,42 @@ public class User implements Role {
     }
 
     private void voteForHotSearch() {
+        System.out.println(TipsEnum.INPUT_VOTE_HOT_SEARCH_NAME);
+        String hotSearchName;
+        int voteHotSearchValue;
+        try {
+            hotSearchName = scanner.next();
+            voteHotSearchValue = getVoteValue();
+            if (voteHotSearchValue > poll) {
+                System.out.println(TipsEnum.VOTE_FAIL);
+            } else {
+                poll -= voteHotSearchValue;
+                updateHotSearchHotValue(hotSearchName, voteHotSearchValue);
+                System.out.println(TipsEnum.VOTE_SUCCESS);
+            }
+        } catch (Exception e) {
+            throw new RuntimeException();
+        }
+        returnToChooseOperationType();
+    }
+
+    private int getVoteValue() {
+        System.out.println(TipsEnum.INPUT_VOTE_VALUE + "您目前还有" + poll + "票");
+        int voteHotSearchValue;
+        try {
+            voteHotSearchValue = scanner.nextInt();
+        } catch (Exception e) {
+            throw new RuntimeException();
+        }
+        return voteHotSearchValue;
+    }
+
+    private void updateHotSearchHotValue(String hotSearchName, int voteHotSearchValue) {
+        HotSearchLibrary.hotSearchList.forEach(hotSearch -> {
+            if (hotSearch.getDescription().equals(hotSearchName)) {
+                hotSearch.setHotValue(hotSearch.getHotValue() + voteHotSearchValue);
+            }
+        });
     }
 
     private void buyHotSearch() {

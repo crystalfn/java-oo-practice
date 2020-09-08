@@ -4,11 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HotSearchLibrary {
-    private static final List<HotSearch> hotSearchList = new ArrayList<>();
+    public static final List<HotSearch> hotSearchList = new ArrayList<>();
 
     public static String viewHotSearch() {
         StringBuilder hotSearches = new StringBuilder();
         int index = 1;
+        hotSearchList.sort((t1, t2) -> t2.getHotValue() - t1.getHotValue());
         for (HotSearch hotSearch : hotSearchList) {
             hotSearches
                 .append(index).append(" ")

@@ -5,13 +5,13 @@ import com.twu.hotSearch.HotSearchLibrary;
 import java.util.Scanner;
 
 public interface Role {
-    Scanner SCANNER = new Scanner(System.in);
+    Scanner scanner = new Scanner(System.in);
 
     default void returnToChooseOperationType() {
         operationAuthority();
         int chooseOperationType;
         try {
-            chooseOperationType = SCANNER.nextInt();
+            chooseOperationType = scanner.nextInt();
             chooseOperation(chooseOperationType);
         } catch (Exception e) {
             throw new RuntimeException();
@@ -27,7 +27,7 @@ public interface Role {
         System.out.println(TipsEnum.INPUT_HOT_SEARCH_NAME);
         String hotSearch;
         try {
-            hotSearch = SCANNER.next().trim();
+            hotSearch = scanner.next().trim();
             HotSearchLibrary.addHotSearch(hotSearch);
         } catch (Exception e) {
             throw new RuntimeException();
