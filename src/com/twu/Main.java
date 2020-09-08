@@ -1,5 +1,6 @@
 package com.twu;
 
+import com.twu.enumeration.OperationTypeEnum;
 import com.twu.enumeration.TipsEnum;
 import com.twu.enumeration.UserTypeEnum;
 import com.twu.role.Administrator;
@@ -23,13 +24,14 @@ public class Main {
 
         String userName = getUserName();
         operateAccordingToRole(userType, userName);
+        main(null);
     }
 
     private static int getUserType() {
         System.out.println(TipsEnum.ASK_USERTYPE + "\n"
             + "1." + UserTypeEnum.USER + "\n"
             + "2." + UserTypeEnum.ADMINISTRATOR + "\n"
-            + "3.退出");
+            + "3." + OperationTypeEnum.EXIT);
 
         int userType;
         try {

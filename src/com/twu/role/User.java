@@ -19,7 +19,7 @@ public class User implements Role {
             + "2." + OperationTypeEnum.VOTE_FOR_HOT_SEARCH + "\n"
             + "3." + OperationTypeEnum.ADD_HOT_SEARCH + "\n"
             + "4." + OperationTypeEnum.BUY_HOT_SEARCH + "\n"
-            + "5.退出");
+            + "5." + OperationTypeEnum.EXIT);
     }
 
     @Override
@@ -38,7 +38,7 @@ public class User implements Role {
                 buyHotSearch();
                 break;
             case 5:
-                System.out.println(TipsEnum.EXIT);
+                System.out.println(TipsEnum.HOME + "\n");
                 break;
             default:
                 System.out.println(TipsEnum.OPERATION_TYPE_WRONG);
@@ -54,11 +54,11 @@ public class User implements Role {
             hotSearchName = scanner.next();
             voteHotSearchValue = getVoteValue();
             if (voteHotSearchValue > poll) {
-                System.out.println(TipsEnum.VOTE_FAIL);
+                System.out.println(TipsEnum.VOTE_FAIL + "\n");
             } else {
                 poll -= voteHotSearchValue;
                 updateHotSearchHotValue(hotSearchName, voteHotSearchValue);
-                System.out.println(TipsEnum.VOTE_SUCCESS);
+                System.out.println(TipsEnum.VOTE_SUCCESS + "\n");
             }
         } catch (Exception e) {
             throw new RuntimeException();
@@ -80,7 +80,8 @@ public class User implements Role {
     private void updateHotSearchHotValue(String hotSearchName, int voteHotSearchValue) {
         HotSearchLibrary.hotSearchList.forEach(hotSearch -> {
             if (hotSearch.getDescription().equals(hotSearchName)) {
-                hotSearch.setHotValue(hotSearch.getHotValue() + voteHotSearchValue);
+                int voteValue = hotSearch.getIsSuper() ? voteHotSearchValue * 2 : voteHotSearchValue;
+                hotSearch.setHotValue(hotSearch.getHotValue() + voteValue);
             }
         });
     }

@@ -28,11 +28,10 @@ public interface Role {
         String hotSearch;
         try {
             hotSearch = scanner.next().trim();
-            HotSearchLibrary.addHotSearch(hotSearch);
         } catch (Exception e) {
             throw new RuntimeException();
         }
-        HotSearchLibrary.addHotSearch(hotSearch);
+        HotSearchLibrary.addHotSearch(hotSearch, false);
         returnToChooseOperationType();
     };
 

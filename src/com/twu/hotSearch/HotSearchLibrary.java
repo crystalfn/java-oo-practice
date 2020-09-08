@@ -20,8 +20,8 @@ public class HotSearchLibrary {
         return hotSearches.toString();
     }
 
-    public static void addHotSearch(String hotSearch) {
-        HotSearch addHotSearch = new HotSearch(hotSearch);
+    public static void addHotSearch(String hotSearch, Boolean isSuper) {
+        HotSearch addHotSearch = new HotSearch(hotSearch, isSuper);
         if (isNewHotSearch(hotSearch)) {
             hotSearchList.add(addHotSearch);
         }
