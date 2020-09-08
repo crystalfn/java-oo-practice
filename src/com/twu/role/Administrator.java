@@ -1,6 +1,7 @@
 package com.twu.role;
 
 import com.twu.enumeration.OperationTypeEnum;
+import com.twu.enumeration.TipsEnum;
 
 public class Administrator implements Role {
     private final String name;
@@ -20,6 +21,25 @@ public class Administrator implements Role {
 
     @Override
     public void chooseOperation(int chooseOperationType) {
+        switch (chooseOperationType) {
+            case 1:
+                viewHotSearch();
+                break;
+            case 2:
+                addHotSearch();
+                break;
+            case 3:
+                addSuperHotSearch();
+                break;
+            case 4:
+                System.out.println(TipsEnum.EXIT);
+                break;
+            default:
+                System.out.println(TipsEnum.OPERATION_TYPE_WRONG);
+                break;
+        }
+    }
 
+    private void addSuperHotSearch() {
     }
 }

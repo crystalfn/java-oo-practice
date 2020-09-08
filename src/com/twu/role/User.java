@@ -1,6 +1,7 @@
 package com.twu.role;
 
 import com.twu.enumeration.OperationTypeEnum;
+import com.twu.enumeration.TipsEnum;
 
 public class User implements Role {
     private final String name;
@@ -22,6 +23,31 @@ public class User implements Role {
 
     @Override
     public void chooseOperation(int chooseOperationType) {
+        switch (chooseOperationType) {
+            case 1:
+                viewHotSearch();
+                break;
+            case 2:
+                voteForHotSearch();
+                break;
+            case 3:
+                addHotSearch();
+                break;
+            case 4:
+                buyHotSearch();
+                break;
+            case 5:
+                System.out.println(TipsEnum.EXIT);
+                break;
+            default:
+                System.out.println(TipsEnum.OPERATION_TYPE_WRONG);
+                break;
+        }
+    }
 
+    private void voteForHotSearch() {
+    }
+
+    private void buyHotSearch() {
     }
 }
