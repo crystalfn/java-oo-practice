@@ -4,7 +4,7 @@ public class HotSearch {
     private final String description;
     private final Boolean isSuper;
     private int hotValue = 0;
-    private Boolean isPurchased = false;
+    private int rank = Integer.MAX_VALUE;
     private int currentPurchasingPrice = 0;
 
     public HotSearch(String description, Boolean isSuper) {
@@ -16,24 +16,24 @@ public class HotSearch {
         return description;
     }
 
-    public int getHotValue() {
-        return hotValue;
-    }
-
     public Boolean getIsSuper() {
         return isSuper;
+    }
+
+    public int getHotValue() {
+        return hotValue;
     }
 
     public void setHotValue(int hotValue) {
         this.hotValue = hotValue;
     }
 
-    public Boolean getPurchased() {
-        return isPurchased;
+    public int getRank() {
+        return rank;
     }
 
-    public void setPurchased(Boolean purchased) {
-        isPurchased = purchased;
+    public void setRank(int rank) {
+        this.rank = rank;
     }
 
     public int getCurrentPurchasingPrice() {

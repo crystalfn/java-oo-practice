@@ -15,7 +15,16 @@ public enum TipsEnum {
     INVALID_VOTE_HOT_SEARCH_NAME("您输入的要投票的热搜名称错误！\n"),
     INPUT_VOTE_VALUE("请输入您要投票的热搜票数："),
     VOTE_SUCCESS("投票成功！\n"),
-    VOTE_FAIL("投票失败！\n");
+    VOTE_FAIL("投票失败！\n"),
+    INPUT_BUY_HOT_SEARCH_NAME("请输入您要购买的热搜的名称："),
+    INVALID_BUY_HOT_SEARCH_NAME("您输入的要购买的热搜名称错误！"),
+    INPUT_BUY_HOT_VALUE("请输入您要购买的热搜排名："),
+    INVALID_BUY_HOT_VALUE("您输入的要购买的热搜排名错误！"),
+    INPUT_BUY_HOT_SEARCH_PRICE("请输入您要购买的热搜金额："),
+    INVALID_INPUT_PRICE("您输入的金额不符合要求，请输入正整数！"),
+    INVALID_BUY_HOT_SEARCH_PRICE("您输入的金额无法购买该热搜！"),
+    BUY_SUCCESS("购买热搜成功！\n"),
+    BUY_FAIL("购买热搜失败！\n");
 
     private final String description;
 
