@@ -2,7 +2,7 @@ package com.twu.enumeration;
 
 public enum TipsEnum {
     ASK_USERTYPE("欢迎来到热搜排行榜，你是？\n"),
-    USER_TYPE_WRONG("没有此类用户角色，已退出！\n"),
+    USER_TYPE_WRONG("没有此类用户角色，请重新选择！\n"),
     OPERATION_TYPE_WRONG("没有此类操作，已退出！\n"),
     HOME("已经退回主菜单！\n"),
     EXIT("已退出！"),
@@ -24,7 +24,8 @@ public enum TipsEnum {
     INVALID_INPUT_PRICE("您输入的金额不符合要求，请输入正整数！"),
     INVALID_BUY_HOT_SEARCH_PRICE("您输入的金额无法购买该热搜！"),
     BUY_SUCCESS("购买热搜成功！\n"),
-    BUY_FAIL("购买热搜失败！\n");
+    BUY_FAIL("购买热搜失败！\n"),
+    WRONG_INPUT("输入信息有误，已退出！");
 
     private final String description;
 

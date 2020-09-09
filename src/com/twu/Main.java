@@ -17,9 +17,10 @@ public class Main {
         if (userType == 3) {
             System.out.println(TipsEnum.EXIT);
             return;
-        } else if (userType != 1 && userType != 2) {
+        }
+        if (userType != 1 && userType != 2) {
             System.out.println(TipsEnum.USER_TYPE_WRONG);
-            return;
+            main(null);
         }
 
         String userName = getUserName();
@@ -91,9 +92,9 @@ public class Main {
         int chooseOperationType;
         try {
             chooseOperationType = SCANNER.nextInt();
-            role.chooseOperation(chooseOperationType);
         } catch (Exception e) {
             throw new RuntimeException();
         }
+        role.chooseOperation(chooseOperationType);
     }
 }
