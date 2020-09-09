@@ -49,7 +49,7 @@ public class Administrator implements Role {
         } catch (Exception e) {
             throw new RuntimeException();
         }
-        HotSearchLibrary.addHotSearch(hotSearch, true);
+        HotSearchLibrary.addSuperHotSearch(hotSearch);
         returnToChooseOperationType();
     }
 }

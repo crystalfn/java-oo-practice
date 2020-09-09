@@ -31,7 +31,7 @@ public interface Role {
         } catch (Exception e) {
             throw new RuntimeException();
         }
-        HotSearchLibrary.addHotSearch(hotSearch, false);
+        HotSearchLibrary.addHotSearch(hotSearch);
         returnToChooseOperationType();
     };
 
