@@ -34,4 +34,12 @@ public class HotSearchLibrary {
             System.out.println(TipsEnum.ADD_SUPER_HOT_SEARCH_FAIL);
         }
     }
+
+    public static void voteForHotSearch(String hotSearchName, int poll) {
+        if (VoteForHotSearchUtility.isValidHotSearchName(hotSearchName)) {
+            VoteForHotSearchUtility.voteForValidHotSearch(hotSearchName, poll);
+        } else {
+            System.out.println(TipsEnum.INVALID_VOTE_HOT_SEARCH_NAME);
+        }
+    }
 }
