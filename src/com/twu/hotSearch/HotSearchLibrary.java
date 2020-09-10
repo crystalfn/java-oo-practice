@@ -34,12 +34,22 @@ public class HotSearchLibrary {
         }
     }
 
-    public static void voteForHotSearch(String hotSearchName, int poll) {
-        if (VoteForHotSearchUtility.isValidHotSearchName(hotSearchName)) {
-            VoteForHotSearchUtility.voteForValidHotSearch(hotSearchName, poll);
-        } else {
+    public static int voteForHotSearch(String hotSearchName, int poll, int inputPoll) {
+        if (!VoteForHotSearchUtility.isValidHotSearchName(hotSearchName)) {
             System.out.println(TipsEnum.INVALID_VOTE_HOT_SEARCH_NAME);
+            System.out.println(TipsEnum.VOTE_FAIL);
+            return poll;
         }
+
+        if (inputPoll > poll) {
+            System.out.println(TipsEnum.INVALID_VOTE_HOT_VALUE);
+            System.out.println(TipsEnum.VOTE_FAIL);
+            return poll;
+        }
+
+        int currentPoll = VoteForHotSearchUtility.updateHotSearchHotValue(hotSearchName, poll, inputPoll);
+        System.out.println(TipsEnum.VOTE_SUCCESS);
+        return currentPoll;
     }
 
     public static void buyHotSearch(String buyHotSearchName, int buyRankOfHotSearch, int priceForBuyHotSearch) {

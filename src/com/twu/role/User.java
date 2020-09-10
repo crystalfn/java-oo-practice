@@ -3,7 +3,6 @@ package com.twu.role;
 import com.twu.enumeration.OperationTypeEnum;
 import com.twu.enumeration.TipsEnum;
 import com.twu.hotSearch.HotSearchLibrary;
-import com.twu.hotSearch.VoteForHotSearchUtility;
 
 public class User implements Role {
     private final String name;
@@ -49,20 +48,18 @@ public class User implements Role {
 
     private void voteForHotSearch() {
         System.out.println(TipsEnum.INPUT_VOTE_HOT_SEARCH_NAME);
-        String hotSearchName;
-        try {
-            hotSearchName = scanner.next();
-        } catch (Exception e) {
-            throw new RuntimeException();
-        }
+        String hotSearchName = RoleInputMessageUtility.getInputMessage();
 
-        HotSearchLibrary.voteForHotSearch(hotSearchName, poll);
-        poll = VoteForHotSearchUtility.getCurrentPoll();
+        System.out.println(TipsEnum.INPUT_VOTE_VALUE + "您目前还有" + poll + "票");
+        int inputPoll = Integer.parseInt(RoleInputMessageUtility.getInputMessage());
+
+        poll = HotSearchLibrary.voteForHotSearch(hotSearchName, poll, inputPoll);
         returnToChooseOperationType();
     }
 
     private void buyHotSearch() {
-        String buyHotSearchName = RoleInputMessageUtility.getInputMessage(TipsEnum.INPUT_BUY_HOT_SEARCH_NAME);
+        System.out.println(TipsEnum.INPUT_BUY_HOT_SEARCH_NAME);
+        String buyHotSearchName = RoleInputMessageUtility.getInputMessage();
         if (!RoleInputMessageUtility.isValidHotSearchName(buyHotSearchName)) {
             System.out.println(TipsEnum.INVALID_BUY_HOT_SEARCH_NAME);
             System.out.println(TipsEnum.BUY_FAIL);
@@ -70,7 +67,8 @@ public class User implements Role {
             return;
         }
 
-        int buyRankOfHotSearch = Integer.parseInt(RoleInputMessageUtility.getInputMessage(TipsEnum.INPUT_BUY_HOT_VALUE));
+        System.out.println(TipsEnum.INPUT_BUY_HOT_VALUE);
+        int buyRankOfHotSearch = Integer.parseInt(RoleInputMessageUtility.getInputMessage());
         if (!RoleInputMessageUtility.isValidRankOfHotSearch(buyRankOfHotSearch)) {
             System.out.println(TipsEnum.INVALID_BUY_HOT_VALUE);
             System.out.println(TipsEnum.BUY_FAIL);
@@ -78,7 +76,8 @@ public class User implements Role {
             return;
         }
 
-        int priceForBuyHotSearch = Integer.parseInt(RoleInputMessageUtility.getInputMessage(TipsEnum.INPUT_BUY_HOT_SEARCH_PRICE));
+        System.out.println(TipsEnum.INPUT_BUY_HOT_SEARCH_PRICE);
+        int priceForBuyHotSearch = Integer.parseInt(RoleInputMessageUtility.getInputMessage());
         if (priceForBuyHotSearch == -1) {
             System.out.println(TipsEnum.INVALID_INPUT_PRICE);
             System.out.println(TipsEnum.BUY_FAIL);
