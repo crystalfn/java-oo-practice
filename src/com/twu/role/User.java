@@ -60,30 +60,12 @@ public class User implements Role {
     private void buyHotSearch() {
         System.out.println(TipsEnum.INPUT_BUY_HOT_SEARCH_NAME);
         String buyHotSearchName = RoleInputMessageUtility.getInputMessage();
-        if (!RoleInputMessageUtility.isValidHotSearchName(buyHotSearchName)) {
-            System.out.println(TipsEnum.INVALID_BUY_HOT_SEARCH_NAME);
-            System.out.println(TipsEnum.BUY_FAIL);
-            returnToChooseOperationType();
-            return;
-        }
 
         System.out.println(TipsEnum.INPUT_BUY_HOT_VALUE);
         int buyRankOfHotSearch = Integer.parseInt(RoleInputMessageUtility.getInputMessage());
-        if (!RoleInputMessageUtility.isValidRankOfHotSearch(buyRankOfHotSearch)) {
-            System.out.println(TipsEnum.INVALID_BUY_HOT_VALUE);
-            System.out.println(TipsEnum.BUY_FAIL);
-            returnToChooseOperationType();
-            return;
-        }
 
         System.out.println(TipsEnum.INPUT_BUY_HOT_SEARCH_PRICE);
-        int priceForBuyHotSearch = Integer.parseInt(RoleInputMessageUtility.getInputMessage());
-        if (priceForBuyHotSearch == -1) {
-            System.out.println(TipsEnum.INVALID_INPUT_PRICE);
-            System.out.println(TipsEnum.BUY_FAIL);
-            returnToChooseOperationType();
-            return;
-        }
+        String priceForBuyHotSearch = RoleInputMessageUtility.getInputMessage();
 
         HotSearchLibrary.buyHotSearch(buyHotSearchName, buyRankOfHotSearch, priceForBuyHotSearch);
         returnToChooseOperationType();

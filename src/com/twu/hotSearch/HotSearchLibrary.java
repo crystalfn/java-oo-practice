@@ -52,19 +52,39 @@ public class HotSearchLibrary {
         return currentPoll;
     }
 
-    public static void buyHotSearch(String buyHotSearchName, int buyRankOfHotSearch, int priceForBuyHotSearch) {
+    public static void buyHotSearch(String buyHotSearchName, int buyRankOfHotSearch, String priceForBuyHotSearch) {
+        if (!BuyHotSearchUtility.isValidHotSearchName(buyHotSearchName)) {
+            System.out.println(TipsEnum.INVALID_BUY_HOT_SEARCH_NAME);
+            System.out.println(TipsEnum.BUY_FAIL);
+            return;
+        }
+
+        if (!BuyHotSearchUtility.isValidRankOfHotSearch(buyRankOfHotSearch)) {
+            System.out.println(TipsEnum.INVALID_BUY_HOT_VALUE);
+            System.out.println(TipsEnum.BUY_FAIL);
+            return;
+        }
+
+        if (!BuyHotSearchUtility.isEnoughPriceForBuyHotSearch(priceForBuyHotSearch)) {
+            System.out.println(TipsEnum.INVALID_INPUT_PRICE);
+            System.out.println(TipsEnum.BUY_FAIL);
+            return;
+        }
+
+        int inputPrice = Integer.parseInt(priceForBuyHotSearch);
         if (BuyHotSearchUtility.isFirstBuyer(buyRankOfHotSearch)) {
-            BuyHotSearchUtility.firstBuyValidHotSearch(buyHotSearchName, buyRankOfHotSearch, priceForBuyHotSearch);
+            BuyHotSearchUtility.firstBuyValidHotSearch(buyHotSearchName, buyRankOfHotSearch, inputPrice);
             System.out.println(TipsEnum.BUY_SUCCESS);
             return;
         }
 
-        if (!BuyHotSearchUtility.isValidPriceForBuyHotSearch(buyRankOfHotSearch, priceForBuyHotSearch)) {
+        if (!BuyHotSearchUtility.isEnoughPriceForBuyHotSearch(buyRankOfHotSearch, inputPrice)) {
             System.out.println(TipsEnum.INVALID_BUY_HOT_SEARCH_PRICE);
             System.out.println(TipsEnum.BUY_FAIL);
-        } else {
-            BuyHotSearchUtility.notFirstBuyValidHotSearch(buyHotSearchName, buyRankOfHotSearch, priceForBuyHotSearch);
-            System.out.println(TipsEnum.BUY_SUCCESS);
+            return;
         }
+
+        BuyHotSearchUtility.notFirstBuyValidHotSearch(buyHotSearchName, buyRankOfHotSearch, inputPrice);
+        System.out.println(TipsEnum.BUY_SUCCESS);
     }
 }

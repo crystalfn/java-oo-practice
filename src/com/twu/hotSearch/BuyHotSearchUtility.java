@@ -1,6 +1,20 @@
 package com.twu.hotSearch;
 
 class BuyHotSearchUtility {
+    static boolean isValidHotSearchName(String hotSearchName) {
+        return HotSearchLibrary.hotSearchList
+            .stream()
+            .anyMatch(hotSearch -> hotSearchName.equals(hotSearch.getDescription()));
+    }
+
+    static boolean isValidRankOfHotSearch(int buyRankOfHotSearch) {
+        return HotSearchLibrary.hotSearchList.size() >= buyRankOfHotSearch;
+    }
+
+    static boolean isEnoughPriceForBuyHotSearch(String priceForBuyHotSearch) {
+        return priceForBuyHotSearch.matches("^[1-9][0-9]*");
+    }
+
     static boolean isFirstBuyer(int buyRankOfHotSearch) {
         for (HotSearch hotSearch : HotSearchLibrary.hotSearchList) {
             if (hotSearch.getRank() == buyRankOfHotSearch) {
@@ -15,12 +29,11 @@ class BuyHotSearchUtility {
             if (buyHotSearchName.equalsIgnoreCase(hotSearch.getDescription())) {
                 hotSearch.setRank(buyRankOfHotSearch);
                 hotSearch.setCurrentPurchasingPrice(priceForBuyHotSearch);
-
             }
         });
     }
 
-    static boolean isValidPriceForBuyHotSearch(int buyRankOfHotSearch, int priceForBuyHotSearch) {
+    static boolean isEnoughPriceForBuyHotSearch(int buyRankOfHotSearch, int priceForBuyHotSearch) {
         for (HotSearch hotSearch : HotSearchLibrary.hotSearchList) {
             if (hotSearch.getRank() == buyRankOfHotSearch) {
                 return hotSearch.getCurrentPurchasingPrice() < priceForBuyHotSearch;

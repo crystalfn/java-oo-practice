@@ -1,5 +1,4 @@
 package com.twu.role;
-import com.twu.hotSearch.HotSearchLibrary;
 
 import java.util.Scanner;
 
@@ -14,15 +13,5 @@ class RoleInputMessageUtility {
             throw new RuntimeException();
         }
         return inputMessage;
-    }
-
-    static boolean isValidHotSearchName(String hotSearchName) {
-        return HotSearchLibrary.hotSearchList
-            .stream()
-            .anyMatch(hotSearch -> hotSearchName.equals(hotSearch.getDescription()));
-    }
-
-    static boolean isValidRankOfHotSearch(int buyRankOfHotSearch) {
-        return HotSearchLibrary.hotSearchList.size() >= buyRankOfHotSearch;
     }
 }
