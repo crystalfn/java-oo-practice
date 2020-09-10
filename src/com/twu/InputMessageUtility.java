@@ -1,11 +1,11 @@
-package com.twu.role;
+package com.twu;
 
 import java.util.Scanner;
 
-class RoleInputMessageUtility {
+public class InputMessageUtility {
     static Scanner scanner = new Scanner(System.in);
 
-    static String getInputMessage() {
+    public static String getInputMessage() {
         String inputMessage;
         try {
             inputMessage = scanner.next().trim();

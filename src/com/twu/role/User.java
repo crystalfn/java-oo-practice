@@ -1,5 +1,6 @@
 package com.twu.role;
 
+import com.twu.InputMessageUtility;
 import com.twu.enumeration.OperationTypeEnum;
 import com.twu.enumeration.TipsEnum;
 import com.twu.hotSearch.HotSearchLibrary;
@@ -48,10 +49,10 @@ public class User implements Role {
 
     private void voteForHotSearch() {
         System.out.println(TipsEnum.INPUT_VOTE_HOT_SEARCH_NAME);
-        String hotSearchName = RoleInputMessageUtility.getInputMessage();
+        String hotSearchName = InputMessageUtility.getInputMessage();
 
         System.out.println(TipsEnum.INPUT_VOTE_VALUE + "您目前还有" + poll + "票");
-        int inputPoll = Integer.parseInt(RoleInputMessageUtility.getInputMessage());
+        int inputPoll = Integer.parseInt(InputMessageUtility.getInputMessage());
 
         poll = HotSearchLibrary.voteForHotSearch(hotSearchName, poll, inputPoll);
         returnToChooseOperationType();
@@ -59,13 +60,13 @@ public class User implements Role {
 
     private void buyHotSearch() {
         System.out.println(TipsEnum.INPUT_BUY_HOT_SEARCH_NAME);
-        String buyHotSearchName = RoleInputMessageUtility.getInputMessage();
+        String buyHotSearchName = InputMessageUtility.getInputMessage();
 
         System.out.println(TipsEnum.INPUT_BUY_HOT_VALUE);
-        int buyRankOfHotSearch = Integer.parseInt(RoleInputMessageUtility.getInputMessage());
+        int buyRankOfHotSearch = Integer.parseInt(InputMessageUtility.getInputMessage());
 
         System.out.println(TipsEnum.INPUT_BUY_HOT_SEARCH_PRICE);
-        String priceForBuyHotSearch = RoleInputMessageUtility.getInputMessage();
+        String priceForBuyHotSearch = InputMessageUtility.getInputMessage();
 
         HotSearchLibrary.buyHotSearch(buyHotSearchName, buyRankOfHotSearch, priceForBuyHotSearch);
         returnToChooseOperationType();

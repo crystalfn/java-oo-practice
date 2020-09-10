@@ -7,11 +7,7 @@ import com.twu.role.Administrator;
 import com.twu.role.Role;
 import com.twu.role.User;
 
-import java.util.Scanner;
-
 public class Main {
-    private static final Scanner SCANNER = new Scanner(System.in);
-
     public static void main(String[] args) {
         int userType = getUserType();
         if (userType == 3) {
@@ -40,35 +36,17 @@ public class Main {
             + "2." + UserTypeEnum.ADMINISTRATOR
             + "3." + OperationTypeEnum.EXIT);
 
-        int userType;
-        try {
-            userType = SCANNER.nextInt();
-        } catch (Exception e) {
-            throw new RuntimeException();
-        }
-        return userType;
+        return Integer.parseInt(InputMessageUtility.getInputMessage());
     }
 
     private static String getUserName() {
         System.out.println(TipsEnum.ASK_NICKNAME);
-        String userName;
-        try {
-            userName = SCANNER.next().trim();
-        } catch (Exception e) {
-            throw new RuntimeException();
-        }
-        return userName;
+        return InputMessageUtility.getInputMessage();
     }
 
     private static String getPassword() {
         System.out.println(TipsEnum.ASK_PASSWORD);
-        String password;
-        try {
-            password = SCANNER.next().trim();
-        } catch (Exception e) {
-            throw new RuntimeException();
-        }
-        return password;
+        return InputMessageUtility.getInputMessage();
     }
 
     private static Boolean isValidRole(int userType, String userName, String password) {
@@ -89,12 +67,7 @@ public class Main {
 
     private static void operation(Role role) {
         role.operationAuthority();
-        int chooseOperationType;
-        try {
-            chooseOperationType = SCANNER.nextInt();
-        } catch (Exception e) {
-            throw new RuntimeException();
-        }
+        int chooseOperationType = Integer.parseInt(InputMessageUtility.getInputMessage());
         role.chooseOperation(chooseOperationType);
     }
 }

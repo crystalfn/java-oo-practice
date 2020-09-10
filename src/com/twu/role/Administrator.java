@@ -1,5 +1,6 @@
 package com.twu.role;
 
+import com.twu.InputMessageUtility;
 import com.twu.enumeration.OperationTypeEnum;
 import com.twu.enumeration.TipsEnum;
 import com.twu.hotSearch.HotSearchLibrary;
@@ -43,12 +44,7 @@ public class Administrator implements Role {
 
     private void addSuperHotSearch() {
         System.out.println(TipsEnum.INPUT_SUPER_HOT_SEARCH_NAME);
-        String hotSearch;
-        try {
-            hotSearch = scanner.next().trim();
-        } catch (Exception e) {
-            throw new RuntimeException();
-        }
+        String hotSearch = InputMessageUtility.getInputMessage();
         HotSearchLibrary.addSuperHotSearch(hotSearch);
         returnToChooseOperationType();
     }
