@@ -1,7 +1,6 @@
 package com.twu.hotSearch;
 
 import com.twu.enumeration.TipsEnum;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,6 +39,22 @@ public class HotSearchLibrary {
             VoteForHotSearchUtility.voteForValidHotSearch(hotSearchName, poll);
         } else {
             System.out.println(TipsEnum.INVALID_VOTE_HOT_SEARCH_NAME);
+        }
+    }
+
+    public static void buyHotSearch(String buyHotSearchName, int buyRankOfHotSearch, int priceForBuyHotSearch) {
+        if (BuyHotSearchUtility.isFirstBuyer(buyRankOfHotSearch)) {
+            BuyHotSearchUtility.firstBuyValidHotSearch(buyHotSearchName, buyRankOfHotSearch, priceForBuyHotSearch);
+            System.out.println(TipsEnum.BUY_SUCCESS);
+            return;
+        }
+
+        if (!BuyHotSearchUtility.isValidPriceForBuyHotSearch(buyRankOfHotSearch, priceForBuyHotSearch)) {
+            System.out.println(TipsEnum.INVALID_BUY_HOT_SEARCH_PRICE);
+            System.out.println(TipsEnum.BUY_FAIL);
+        } else {
+            BuyHotSearchUtility.notFirstBuyValidHotSearch(buyHotSearchName, buyRankOfHotSearch, priceForBuyHotSearch);
+            System.out.println(TipsEnum.BUY_SUCCESS);
         }
     }
 }

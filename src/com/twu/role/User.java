@@ -2,7 +2,6 @@ package com.twu.role;
 
 import com.twu.enumeration.OperationTypeEnum;
 import com.twu.enumeration.TipsEnum;
-import com.twu.hotSearch.HotSearch;
 import com.twu.hotSearch.HotSearchLibrary;
 import com.twu.hotSearch.VoteForHotSearchUtility;
 
@@ -62,30 +61,24 @@ public class User implements Role {
         returnToChooseOperationType();
     }
 
-    private boolean isValidHotSearchName(String hotSearchName) {
-        return HotSearchLibrary.hotSearchList
-            .stream()
-            .anyMatch(hotSearch -> hotSearchName.equals(hotSearch.getDescription()));
-    }
-
     private void buyHotSearch() {
-        String buyHotSearchName = getBuyHotSearchName();
-        if (!isValidHotSearchName(buyHotSearchName)) {
+        String buyHotSearchName = RoleInputMessageUtility.getInputMessage(TipsEnum.INPUT_BUY_HOT_SEARCH_NAME);
+        if (!RoleInputMessageUtility.isValidHotSearchName(buyHotSearchName)) {
             System.out.println(TipsEnum.INVALID_BUY_HOT_SEARCH_NAME);
             System.out.println(TipsEnum.BUY_FAIL);
             returnToChooseOperationType();
             return;
         }
 
-        int buyRankOfHotSearch = getBuyRankOfHotSearch();
-        if (!isValidRankOfHotSearch(buyRankOfHotSearch)) {
+        int buyRankOfHotSearch = Integer.parseInt(RoleInputMessageUtility.getInputMessage(TipsEnum.INPUT_BUY_HOT_VALUE));
+        if (!RoleInputMessageUtility.isValidRankOfHotSearch(buyRankOfHotSearch)) {
             System.out.println(TipsEnum.INVALID_BUY_HOT_VALUE);
             System.out.println(TipsEnum.BUY_FAIL);
             returnToChooseOperationType();
             return;
         }
 
-        int priceForBuyHotSearch = getPriceForBuyHotSearch();
+        int priceForBuyHotSearch = Integer.parseInt(RoleInputMessageUtility.getInputMessage(TipsEnum.INPUT_BUY_HOT_SEARCH_PRICE));
         if (priceForBuyHotSearch == -1) {
             System.out.println(TipsEnum.INVALID_INPUT_PRICE);
             System.out.println(TipsEnum.BUY_FAIL);
@@ -93,99 +86,7 @@ public class User implements Role {
             return;
         }
 
-        if (isFirstBuyer(buyRankOfHotSearch)) {
-            firstBuyValidHotSearch(buyHotSearchName, buyRankOfHotSearch, priceForBuyHotSearch);
-            System.out.println(TipsEnum.BUY_SUCCESS);
-        } else {
-            if (!isValidPriceForBuyHotSearch(buyRankOfHotSearch, priceForBuyHotSearch)) {
-                System.out.println(TipsEnum.INVALID_BUY_HOT_SEARCH_PRICE);
-                System.out.println(TipsEnum.BUY_FAIL);
-                return;
-            } else {
-                notFirstBuyValidHotSearch(buyHotSearchName, buyRankOfHotSearch, priceForBuyHotSearch);
-                System.out.println(TipsEnum.BUY_SUCCESS);
-            }
-        }
+        HotSearchLibrary.buyHotSearch(buyHotSearchName, buyRankOfHotSearch, priceForBuyHotSearch);
         returnToChooseOperationType();
-    }
-
-    private String getBuyHotSearchName() {
-        System.out.println(TipsEnum.INPUT_BUY_HOT_SEARCH_NAME);
-        String buyHotSearchName;
-        try {
-            buyHotSearchName = scanner.next().trim();
-        } catch (Exception e) {
-            throw new RuntimeException();
-        }
-        return buyHotSearchName;
-    }
-
-    private int getBuyRankOfHotSearch() {
-        System.out.println(TipsEnum.INPUT_BUY_HOT_VALUE);
-        int buyRankOfHotSearch;
-        try {
-            buyRankOfHotSearch = scanner.nextInt();
-        } catch (Exception e) {
-            throw new RuntimeException();
-        }
-        return buyRankOfHotSearch;
-    }
-
-    private boolean isValidRankOfHotSearch(int buyRankOfHotSearch) {
-        return HotSearchLibrary.hotSearchList.size() >= buyRankOfHotSearch;
-    }
-
-    private int getPriceForBuyHotSearch() {
-        System.out.println(TipsEnum.INPUT_BUY_HOT_SEARCH_PRICE);
-        String priceForBuyHotSearch;
-        try {
-            priceForBuyHotSearch = scanner.next();
-        } catch (Exception e) {
-            throw new RuntimeException();
-        }
-        if (!priceForBuyHotSearch.matches("^[1-9][0-9]*")) {
-            return -1;
-        }
-        return Integer.parseInt(priceForBuyHotSearch);
-    }
-
-    private boolean isFirstBuyer(int buyRankOfHotSearch) {
-        for (HotSearch hotSearch : HotSearchLibrary.hotSearchList) {
-            if (hotSearch.getRank() == buyRankOfHotSearch) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    private void firstBuyValidHotSearch(String buyHotSearchName, int buyRankOfHotSearch, int priceForBuyHotSearch) {
-        HotSearchLibrary.hotSearchList.forEach(hotSearch -> {
-            if (buyHotSearchName.equalsIgnoreCase(hotSearch.getDescription())) {
-                hotSearch.setRank(buyRankOfHotSearch);
-                hotSearch.setCurrentPurchasingPrice(priceForBuyHotSearch);
-
-            }
-        });
-    }
-
-    private boolean isValidPriceForBuyHotSearch(int buyRankOfHotSearch, int priceForBuyHotSearch) {
-        for (HotSearch hotSearch : HotSearchLibrary.hotSearchList) {
-            if (hotSearch.getRank() == buyRankOfHotSearch) {
-                return hotSearch.getCurrentPurchasingPrice() < priceForBuyHotSearch;
-            }
-        }
-        return false;
-    }
-
-    private void notFirstBuyValidHotSearch(String buyHotSearchName, int buyRankOfHotSearch, int priceForBuyHotSearch) {
-        HotSearch removeHotSearch = HotSearchLibrary.hotSearchList.get(0);
-        for (HotSearch hotSearch : HotSearchLibrary.hotSearchList) {
-            if (hotSearch.getRank() == buyRankOfHotSearch) {
-                removeHotSearch = hotSearch;
-                break;
-            }
-        }
-        HotSearchLibrary.hotSearchList.remove(removeHotSearch);
-        firstBuyValidHotSearch(buyHotSearchName, buyRankOfHotSearch, priceForBuyHotSearch);
     }
 }
